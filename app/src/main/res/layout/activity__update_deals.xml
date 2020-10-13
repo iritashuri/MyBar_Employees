@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity_UpdateDeals"
+    android:background="@color/colorBackground">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingTop="100dp"
+        >
+
+        //List of deals
+
+
+
+        <Button
+            android:id="@+id/UpdateDeals_BTN_Add"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:background="@drawable/mybtn"
+            android:layout_marginBottom="40dp"
+            android:text="Add New deal"
+            />
+
+        <ProgressBar
+            android:id="@+id/UpdateDeals_PRBR_progressBar"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:progressTint="#EFC957"
+            android:visibility="invisible"/>
+
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/LogIn_IMG_logo"
+        android:layout_width="94dp"
+        android:layout_height="136dp"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        app:srcCompat="@drawable/cocktail"
+        android:rotation="@android:integer/config_mediumAnimTime"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

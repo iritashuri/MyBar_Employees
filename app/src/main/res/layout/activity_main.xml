@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity_Main"
+    android:background="@color/colorBackground">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingTop="50dp"
+        >
+
+        <TextView
+            android:id="@+id/Main_TXT_welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome to MyBar!"
+            android:textSize="50dp"
+            android:layout_marginBottom="100dp"
+            android:fontFamily="cursive"
+            android:textStyle="bold"
+            android:textColor="@color/colorDarkText"
+            android:shadowColor="@color/colorTextShadowWhite"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="3"
+            />
+        <EditText
+            android:id="@+id/Main_EDT_password"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="your password"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="30dp"
+            />
+
+        <Button
+            android:id="@+id/Main__BTN_addOrder"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:background="@drawable/mybtn"
+            android:layout_marginBottom="40dp"
+            android:text="Add an order to a customer"
+            />
+
+        <Button
+            android:id="@+id/Main_BTN_updateDeals"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:background="@drawable/mybtn"
+            android:layout_marginBottom="20dp"
+            android:text="Update deals"/>
+
+        <TextView
+            android:id="@+id/Main_TXT_newEmployee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New employee?"
+            android:textColor="@color/colorDarkText"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/Main_IMG_logo"
+        android:layout_width="94dp"
+        android:layout_height="136dp"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        app:srcCompat="@drawable/cocktail"
+        android:rotation="@android:integer/config_mediumAnimTime"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
