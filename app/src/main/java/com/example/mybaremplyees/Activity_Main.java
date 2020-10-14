@@ -32,7 +32,8 @@ public class Activity_Main extends AppCompatActivity {
             public void onClick(View view) {
                 // Check if password exist
 
-                openUpdateDeals();
+                //openAddOrderToCustomer();
+
             }
         });
 
@@ -40,6 +41,15 @@ public class Activity_Main extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openRegisterEmployee();
+            }
+        });
+
+        Main_BTN_updateDeals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Check if password exist
+
+                openUpdateDeals();
             }
         });
     }
@@ -62,4 +72,6 @@ public class Activity_Main extends AppCompatActivity {
         Intent intent = new Intent(Activity_Main.this, Activity_RegisterEmployee.class);
         startActivity(intent);
     }
+
+
 }
