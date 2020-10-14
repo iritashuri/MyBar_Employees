@@ -2,16 +2,23 @@ package com.example.mybaremplyees;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+
 public class Activity_UpdateDeals extends AppCompatActivity {
 
     private Button UpdateDeals_BTN_Add;
     private ProgressBar UpdateDeals_PRBR_progressBar;
+
+    private FirebaseFirestore db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,4 +44,5 @@ public class Activity_UpdateDeals extends AppCompatActivity {
         UpdateDeals_BTN_Add = findViewById(R.id.UpdateDeals_BTN_Add);
         UpdateDeals_PRBR_progressBar = findViewById(R.id.UpdateDeals_PRBR_progressBar);
     }
+    
 }
