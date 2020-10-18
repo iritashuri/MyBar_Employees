@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -28,6 +30,8 @@ public class Activity_AddDeal extends AppCompatActivity {
     private ProgressBar AddDeal_PRBR_progressBar;
 
     private FirebaseFirestore db;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
 
 
     @Override
@@ -38,6 +42,8 @@ public class Activity_AddDeal extends AppCompatActivity {
         findViews();
 
         db = FirebaseFirestore.getInstance();
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("deals/");
 
         AddDeal_BTN_Add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,7 +137,14 @@ public class Activity_AddDeal extends AppCompatActivity {
         deal.put("description", description);
         deal.put("price", price);
 
-        // Add a new document with a generated ID
+        //realTime
+        Deal d = new Deal(description, price);
+        //myRef.child(d.getKey()).setValue(d);
+
+        // Add new deal to realTime database
+        myRef.push().setValue(d);
+
+        // Add a new document with a generated ID firestore
         db.collection("deals")
                 .add(deal)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

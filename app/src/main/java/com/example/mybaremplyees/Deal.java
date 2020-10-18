@@ -4,8 +4,8 @@ import java.util.UUID;
 
 public class Deal {
     String key;
-    String description;
-    String price;
+    private String description;
+    private String price;
 
     public Deal() {
         this.key = UUID.randomUUID().toString();

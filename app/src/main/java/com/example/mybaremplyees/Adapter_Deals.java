@@ -43,7 +43,7 @@ public class Adapter_Deals extends RecyclerView.Adapter<Adapter_Deals.ViewHolder
         Log.d("pttt", "position = " + position);
         Deal deal = mData.get(position);
         holder.dealView_TXT_description.setText("" + deal.getDescription());
-        holder.dealView_TXT_price.setText(""+ deal.getPrice());
+        holder.dealView_TXT_price.setText(deal.getPrice() + " Nis");
 
     }
 
@@ -76,6 +76,6 @@ public class Adapter_Deals extends RecyclerView.Adapter<Adapter_Deals.ViewHolder
         }
     }
     public interface DealItemClickListener {
-        void itemClicked(Deal exercise, int position);
+        void itemClicked(Deal deal, int position);
     }
 }

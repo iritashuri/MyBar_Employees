@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+    android:background="@drawable/mybtnyellow">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:textSize="20dp"/>
+
+            <EditText
+                android:id="@+id/UpdateDeal_EDT_description"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:hint="Deal description"
+                android:inputType="text"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/round_corner"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Price"
+                android:textSize="20dp"/>
+
+            <EditText
+                android:id="@+id/UpdateDeal_EDT_price"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:hint="Price"
+                android:inputType="numberDecimal"
+                android:background="@drawable/round_corner"
+                />
+        </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>

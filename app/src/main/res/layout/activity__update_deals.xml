@@ -43,7 +43,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/LogIn_IMG_logo"
+        android:id="@+id/UpdateDeals_IMG_logo"
         android:layout_width="94dp"
         android:layout_height="136dp"
         android:layout_gravity="bottom|right"
