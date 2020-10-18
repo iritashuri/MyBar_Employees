@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity_Order"
+    android:background="@color/colorBackground">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingTop="30dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Orders"
+            android:textSize="30dp"
+            />
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <TableRow
+                android:gravity="center"
+                android:padding="10dp"
+                android:layout_height="185dp"
+                >
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:background="@drawable/mybtnyellow"
+                    android:layout_marginRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="10dp"
+                    >
+                    <Button
+                        android:id="@+id/Order_BTN_cocktails"
+                        android:layout_width="100dp"
+                        android:layout_height="80dp"
+                        android:background="@drawable/cocktail_menu"
+                        android:layout_gravity="center"
+                        android:textColor="#CC3636"
+                        android:textSize="20dp"
+                        />
+
+                    <TextView
+                        android:text="Cocktails"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:textColor="#CC3636"
+                        android:textSize="15dp"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:background="@drawable/mybtnyellow"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="10dp"
+                    >
+                    <Button
+                        android:id="@+id/Order_BTN_Wines"
+                        android:layout_width="100dp"
+                        android:layout_height="80dp"
+                        android:background="@drawable/wine"
+                        android:layout_gravity="center"
+                        android:textColor="#CC3636"
+                        android:textSize="20dp"/>
+                    <TextView
+                        android:text="Wines"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:textColor="#CC3636"
+                        android:textSize="15dp"
+                        />
+                </LinearLayout>
+            </TableRow>
+
+
+            <TableRow
+                android:layout_height="185dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:padding="10dp">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:background="@drawable/mybtnyellow"
+                    android:layout_marginRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="10dp"
+                    >
+                    <Button
+                        android:id="@+id/Order_BTN_Daily_Beers"
+                        android:layout_width="100dp"
+                        android:layout_height="80dp"
+                        android:background="@drawable/beer"
+                        android:layout_gravity="center"
+                        android:textColor="#CC3636"
+                        android:textSize="20dp" />
+                    <TextView
+                        android:text="Beers"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:textColor="#CC3636"
+                        android:textSize="15dp"
+                        />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:background="@drawable/mybtnyellow"
+                    android:paddingTop="10dp">
+
+                    <Button
+                        android:id="@+id/Order_BTN_Chasers"
+                        android:layout_width="100dp"
+                        android:layout_height="80dp"
+                        android:background="@drawable/chaser"
+                        android:layout_gravity="center"
+                        android:textColor="#CC3636"
+                        android:textSize="20dp" />
+                    <TextView
+                        android:text="Chasers"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:textColor="#CC3636"
+                        android:textSize="15dp"
+                        />
+                </LinearLayout>
+
+            </TableRow>
+            <TableRow
+                android:layout_height="185dp"
+                android:gravity="center"
+                android:padding="10dp">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:background="@drawable/mybtnyellow"
+                    android:layout_marginRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="10dp"
+                    >
+
+                    <Button
+                        android:id="@+id/Order_BTN_Daily_SoftDrinks"
+                        android:layout_width="100dp"
+                        android:layout_height="80dp"
+                        android:background="@drawable/juice"
+                        android:layout_gravity="center"
+                        android:textColor="#CC3636"
+                        android:textSize="20dp" />
+                    <TextView
+                        android:text="Soft Drinks"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:textColor="#CC3636"
+                        android:textSize="15dp"
+                        />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:background="@drawable/mybtnyellow"
+                    android:paddingTop="10dp">
+
+                    <Button
+                        android:id="@+id/Order_BTN_Food"
+                        android:layout_width="100dp"
+                        android:layout_height="80dp"
+                        android:background="@drawable/pizza"
+                        android:layout_gravity="center"
+                        android:textColor="#CC3636"
+                        android:textSize="20dp" />
+                    <TextView
+                        android:text="Food"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:textColor="#CC3636"
+                        android:textSize="15dp"
+                        />
+                </LinearLayout>
+
+            </TableRow>
+            <TableRow
+                android:layout_height="185dp"
+                android:gravity="center"
+                android:padding="10dp">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:background="@drawable/mybtnyellow"
+                    android:layout_marginRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="10dp"
+                    >
+
+                    <Button
+                        android:id="@+id/Order_BTN_Daily_Deals"
+                        android:layout_width="100dp"
+                        android:layout_height="80dp"
+                        android:background="@drawable/deal"
+                        android:layout_gravity="center"
+                        android:textColor="#CC3636"
+                        android:textSize="20dp" />
+                    <TextView
+                        android:text="Deals"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:textColor="#CC3636"
+                        android:textSize="15dp"
+                        />
+                </LinearLayout>
+            </TableRow>
+
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            >
+            <Button
+                android:id="@+id/Order_BTN_Daily_Add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add"
+                android:textSize="10dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/mybtn"/>
+            <Button
+                android:id="@+id/Order_BTN_Daily_View"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="View Order"
+                android:textSize="10dp"
+                android:background="@drawable/mybtn"
+                android:layout_margin="5dp"
+                />
+            <Button
+                android:id="@+id/Order_BTN_Daily_Delete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Delete and leave"
+                android:textSize="10dp"
+                android:background="@drawable/mybtn"
+                android:layout_margin="5dp"
+                />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

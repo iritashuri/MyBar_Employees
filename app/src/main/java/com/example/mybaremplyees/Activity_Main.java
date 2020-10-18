@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -31,7 +32,6 @@ public class Activity_Main extends AppCompatActivity {
 
     private ArrayList<String> employees_passwords = new ArrayList<>();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +39,7 @@ public class Activity_Main extends AppCompatActivity {
 
         findViews();
 
+        // Set Firestore
         db = FirebaseFirestore.getInstance();
 
         getEmployees();
@@ -49,7 +50,7 @@ public class Activity_Main extends AppCompatActivity {
             public void onClick(View view) {
                 // Check if password exist
                 if(checkPassword()){
-                    //openAddOrderToCustomer();
+                    openAddOrderToCustomer();
                 }
 
             }
@@ -87,6 +88,13 @@ public class Activity_Main extends AppCompatActivity {
         Intent intent = new Intent(Activity_Main.this, Activity_UpdateDeals.class);
         startActivity(intent);
     }
+
+    // Open orders activity
+    private void openAddOrderToCustomer() {
+        Intent intent = new Intent(Activity_Main.this, Activity_Order.class);
+        startActivity(intent);
+    }
+
 
     // Open RegisterEmployee activity
     private void openRegisterEmployee(){
