@@ -2,7 +2,9 @@ package com.example.mybaremplyees;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 import com.google.gson.Gson;
@@ -41,8 +43,79 @@ public class Activity_Order extends AppCompatActivity {
         // Set new empty order on SP
         setOrderOnSP();
 
+        // Open cocktail list
+        Order_BTN_cocktails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openItemCategory(Item.CATEGORIES.COCKTAILS);
+            }
+        });
+
+        // Open wines list
+        Order_BTN_Wines.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openItemCategory(Item.CATEGORIES.WINES);
+            }
+        });
+
+        // Open beers list
+        Order_BTN_Daily_Beers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openItemCategory(Item.CATEGORIES.BEERS);
+            }
+        });
+
+        // Open chasers list
+        Order_BTN_Chasers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openItemCategory(Item.CATEGORIES.CHASERS);
+            }
+        });
+
+        // Open soft drinks list
+        Order_BTN_Daily_SoftDrinks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openItemCategory(Item.CATEGORIES.SOFT_DRINKS);
+            }
+        });
+
+        // Open soft food list
+        Order_BTN_Food.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openItemCategory(Item.CATEGORIES.FOOD);
+            }
+        });
+
+        // Open deals list
+        Order_BTN_Daily_Deals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDealsView();
+            }
+        });
     }
 
+    private void openDealsView() {
+        Intent intent = new Intent(Activity_Order.this, Activity_DealsDisplay.class);
+        startActivity(intent);
+    }
+
+    private void openItemCategory(String category) {
+        // Set category on SP
+        mySPV.putString(MySPV.KEYS.CATEGORY, category);
+
+        // open ItemCategory Activity
+        Intent intent = new Intent(Activity_Order.this, Activity_ItemCategory.class);
+        startActivity(intent);
+
+    }
+
+    // save order on SP
     private void setOrderOnSP() {
         String json = gson.toJson(current_order);
         mySPV.putString(MySPV.KEYS.CURRENT_ORDER, json);

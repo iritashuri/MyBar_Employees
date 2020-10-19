@@ -27,7 +27,6 @@ import java.util.ArrayList;
 public class Activity_UpdateDeals extends AppCompatActivity {
 
     private Button UpdateDeals_BTN_Add;
-    private ProgressBar UpdateDeals_PRBR_progressBar;
     private RecyclerView UpdateDeals_LST_dealsList;
 
     private FirebaseFirestore db;
@@ -135,7 +134,6 @@ public class Activity_UpdateDeals extends AppCompatActivity {
 
     private void findViews() {
         UpdateDeals_BTN_Add = findViewById(R.id.UpdateDeals_BTN_Add);
-        UpdateDeals_PRBR_progressBar = findViewById(R.id.UpdateDeals_PRBR_progressBar);
         UpdateDeals_LST_dealsList = findViewById(R.id.UpdateDeals_LST_dealsList);
     }
 

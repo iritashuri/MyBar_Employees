@@ -15,12 +15,12 @@
         android:orientation="vertical"
         android:paddingTop="30dp"
         >
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Orders"
-            android:textSize="30dp"
-            />
+            android:textSize="30dp" />
 
         <TableLayout
             android:layout_width="wrap_content"
@@ -257,7 +257,7 @@
                 android:text="Delete and leave"
                 android:textSize="10dp"
                 android:background="@drawable/mybtn"
-                android:layout_margin="5dp"
+                android:layout_marginLeft="5dp"
                 />
 
         </LinearLayout>

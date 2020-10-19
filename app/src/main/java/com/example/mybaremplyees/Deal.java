@@ -44,4 +44,8 @@ public class Deal {
         this.price = price;
         return this;
     }
+
+    public Item convertToItem(){
+        return new Item(this.description, this.price);
+    }
 }

@@ -11,6 +11,7 @@ public class Item {
         public static final String WINES = "WINES";
         public static final String CHASERS = "CHASERS";
         public static final String DEALS = "DEALS";
+        public static final String FOOD = "FOOD";
 
     }
 
@@ -21,6 +22,13 @@ public class Item {
 
     public Item() {
     }
+
+
+    public Item(String description, String price) {
+        this.category = category;
+        this.price = price;
+    }
+
 
     public Item(String category, String description, String price) {
         this.category = category;
