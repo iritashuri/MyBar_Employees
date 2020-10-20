@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -90,7 +89,7 @@ public class Activity_DealsDisplay extends AppCompatActivity {
     };
 
     private void openItemDialog(Item item) {
-        Item_Dialog itemDialog = new Item_Dialog(item);
+        ItemDialog itemDialog = new ItemDialog(item);
         itemDialog.show(getSupportFragmentManager(), "Update Deal");
     }
 }

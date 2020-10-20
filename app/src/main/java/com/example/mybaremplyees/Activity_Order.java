@@ -1,16 +1,39 @@
 package com.example.mybaremplyees;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
 
-public class Activity_Order extends AppCompatActivity {
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Activity_Order extends AppCompatActivity implements LocationListener{
 
     // Set Buttons
     private Button Order_BTN_cocktails;
@@ -22,8 +45,11 @@ public class Activity_Order extends AppCompatActivity {
     private Button Order_BTN_Daily_Deals;
     private Button Order_BTN_Daily_Add;
     private Button Order_BTN_Daily_View;
-    private Button Order_BTN_Daily_Delete;
     private EditText Order_EDT_customerMail;
+
+    // Set FirebaseAuth
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
     // Set SP
     private MySPV mySPV;
@@ -31,6 +57,14 @@ public class Activity_Order extends AppCompatActivity {
 
     //set new Order
     Order current_order = new Order();
+
+    // Set userId
+    String userId = "";
+
+    // Set location
+    private LocationManager locationManager;
+    private Location location;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +76,15 @@ public class Activity_Order extends AppCompatActivity {
         // Set SP
         mySPV = new MySPV(this);
 
+        // Set firebase
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+
         // Set new empty order on SP
         setOrderOnSP();
+
+        // Set location
+        setLocation();
 
 
         // Open cocktail list
@@ -101,6 +142,123 @@ public class Activity_Order extends AppCompatActivity {
                 openDealsView();
             }
         });
+
+        // see current order
+        Order_BTN_Daily_View.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openOrderView();
+            }
+        });
+
+        Order_BTN_Daily_Add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getCurrentOrderFromSP();
+                addOrderToCustomer();
+            }
+        });
+    }
+
+    private void addOrderToCustomer() {
+        // Get customer mail
+        final String customer_mail = Order_EDT_customerMail.getText().toString().trim();
+        // Validate that mail inserted
+        if(customer_mail.isEmpty()){
+            Toast.makeText(Activity_Order.this, "Please enter customer email address", Toast.LENGTH_LONG).show();
+            return;
+        }
+        // Get user id from Firestore according to his email address
+        db.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        if(document.get("email").equals(customer_mail)){
+
+                            userId = document.getId();
+                            Log.d("ptt", "document.getId(): " + document.getId());
+                            // Set user id on current user
+                            current_order.setUser_id(userId);
+                            // get Orders collection
+                            CollectionReference collectionReference  = db.collection("orders");
+                            // Set location
+                            setOrderLocation();
+                            // Set timestamp
+                            setOrderTimeStamp();
+
+                            // Set new drinks number
+
+
+                            int drinks;
+                            if(!(document.get("drinks").toString().isEmpty()))
+                                 drinks = Integer.parseInt(document.get("drinks").toString());
+                            else
+                                drinks = 0;
+
+                            String name = document.get("full_name").toString();
+                            String email = document.get("email").toString();
+                            String phone = document.get("phone").toString();
+
+                            setDrinks(drinks,name, email, phone);
+
+                            // Make map to insert details to order document
+                            Map<String,Object> order = new HashMap<>();
+                            order.put("user_id", current_order.getUser_id());
+                            order.put("item_list", current_order.getItem_list());
+                            order.put("total_price", current_order.getTotal_price());
+                            order.put("timestamp", current_order.getTimestamp());
+                            order.put("lat", current_order.getLat());
+                            order.put("lon", current_order.getLon());
+
+                            // Add new order document to orders collection
+                            collectionReference.add(order).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Toast.makeText(Activity_Order.this, "Added order successfully", Toast.LENGTH_LONG).show();
+                                    finish();
+                                }
+                            });
+                            break;
+                        }
+                        Toast.makeText(Activity_Order.this, "User not found", Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Log.d("TAG", "Error getting documents: ", task.getException());
+                }
+            }
+        });
+
+    }
+
+    private void setDrinks(int drinks, String name, String email, String phone) {
+        DocumentReference documentReference = db.collection("users").document(userId);
+
+        for(Item it: current_order.getItem_list()){
+            if(it.isAlcoholGlass())
+                drinks++;
+        }
+        Log.d("drink",  ""+ drinks);
+        Map<String,Object> user = new HashMap<>();
+        user.put("full_name" , name);
+        user.put("email", email);
+        user.put("phone", phone);
+        user.put("drinks", drinks);
+
+        documentReference.set(user);
+
+    }
+
+
+    // Get current order from SP and set in on current_order
+    private void getCurrentOrderFromSP() {
+            String json_order = mySPV.getString(MySPV.KEYS.CURRENT_ORDER, "No Item");
+            current_order = gson.fromJson(json_order, Order.class);
+    }
+
+    private void openOrderView() {
+        Intent intent = new Intent(Activity_Order.this, Activity_ViewOrder.class);
+        startActivity(intent);
     }
 
     private void openDealsView() {
@@ -134,7 +292,68 @@ public class Activity_Order extends AppCompatActivity {
         Order_BTN_Daily_Deals = findViewById(R.id.Order_BTN_Daily_Deals);
         Order_BTN_Daily_Add = findViewById(R.id.Order_BTN_Daily_Add);
         Order_BTN_Daily_View = findViewById(R.id.Order_BTN_Daily_View);
-        Order_BTN_Daily_Delete = findViewById(R.id.Order_BTN_Daily_Delete);
         Order_EDT_customerMail = findViewById(R.id.Order_EDT_customerMail);
     }
+
+    void setOrderLocation(){
+        current_order.setLat(location.getLatitude());
+        current_order.setLon(location.getLongitude());
+
+    }
+    void setOrderTimeStamp(){
+        current_order.setTimestamp(java.text.DateFormat.getDateTimeInstance().format(new Date()));
+    }
+
+    private void setLocation() {
+        locationManager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
+
+        // Check map permission
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(this, "Please permit location accsess", Toast.LENGTH_LONG).show();
+            return;
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (LocationListener) this);
+        location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+    }
+
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+        current_order.setLat(location.getLatitude());
+        current_order.setLon(location.getLongitude());
+    }
+
+//    public void updateCustomerDrinks(){
+//        //int drinks = Integer.parseInt(documentReference.get("drinks").toString());
+//        //int drinks = Integer.parseInt(documentReference.get("key").toString());
+//        // Add drinks according current order
+//
+//        db.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if (task.isSuccessful()){
+//                    QuerySnapshot queryDocumentSnapshots = task.getResult();
+//                    //int drinks = Integer.parseInt(queryDocumentSnapshots.get(userId));
+//
+//                }else{
+//
+//                }
+//            }
+//        });
+//
+//        DocumentReference documentReference = db.collection("users")
+//                .document(userId);
+//
+//        for(Item i: current_order.getItem_list()){
+//            if(i.isAlcoholGlass())
+//               // drinks++;
+//        }
+//        // Make map to insert details to customer
+////        Map<String,Object> user = new HashMap<>();
+////        user.put("full_name" , documentReference.get("full_name"));
+////        user.put("email", documentReference.get("email"));
+////        user.put("phone", documentReference.get("phone"));
+////        user.put("drinks", documentReference.get("drinks"));
+//
+//       // documentReference.update(user);
+//    }
 }

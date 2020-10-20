@@ -31,7 +31,7 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Item_Dialog extends AppCompatDialogFragment {
+public class ItemDialog extends AppCompatDialogFragment {
     private ElegantNumberButton Dialog_Item_NBTM_number;
     private FirebaseFirestore db;
 
@@ -41,10 +41,10 @@ public class Item_Dialog extends AppCompatDialogFragment {
     private Item item;
 
 
-    public Item_Dialog() {
+    public ItemDialog() {
     }
 
-    public Item_Dialog(Item item) {
+    public ItemDialog(Item item) {
         this.item = item;
     }
 
@@ -77,30 +77,6 @@ public class Item_Dialog extends AppCompatDialogFragment {
                 for(int n = 0; n < num_of_items; n++){
                     insetNewOrderToSP(item);
                 }
-                // Find element in Firestore according description
-//                DocumentReference docRef = db.collection("items").document("items");
-//                if(docRef == null){
-//                    Log.d("pttt", "docRef == null");
-//                }
-//                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            DocumentSnapshot document = task.getResult();
-//                            Item
-//                            if (document.exists()) {
-//                                // Inset item to current order on SP num_of_items times
-//                                for(int i = 0; i < num_of_items; i++){
-//                                    insetNewOrderToSP(item);
-//                                }
-//                            } else {
-//                                Log.d("TAG", "No such document");
-//                            }
-//                        } else {
-//                            Log.d("TAG", "get failed with ", task.getException());
-//                        }
-//                    }
-//                });
             }
         });
         return builder.create();
@@ -111,6 +87,7 @@ public class Item_Dialog extends AppCompatDialogFragment {
         Order new_order = getCurrentOrderFromSP();
         // Add new item
         new_order.addOneItemToList(item);
+        new_order.setTotal_price();
         // Insert to SP
         String json_order = gson.toJson(new_order);
         mySPV.putString(MySPV.KEYS.CURRENT_ORDER, json_order);

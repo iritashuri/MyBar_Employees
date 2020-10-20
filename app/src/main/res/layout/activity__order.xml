@@ -235,7 +235,7 @@
             >
             <Button
                 android:id="@+id/Order_BTN_Daily_Add"
-                android:layout_width="match_parent"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="Add"
                 android:textSize="10dp"
@@ -243,23 +243,13 @@
                 android:background="@drawable/mybtn"/>
             <Button
                 android:id="@+id/Order_BTN_Daily_View"
-                android:layout_width="match_parent"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="View Order"
                 android:textSize="10dp"
                 android:background="@drawable/mybtn"
                 android:layout_margin="5dp"
                 />
-            <Button
-                android:id="@+id/Order_BTN_Daily_Delete"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Delete and leave"
-                android:textSize="10dp"
-                android:background="@drawable/mybtn"
-                android:layout_marginLeft="5dp"
-                />
-
         </LinearLayout>
 
 

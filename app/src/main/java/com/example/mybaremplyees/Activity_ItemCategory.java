@@ -7,20 +7,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Activity_ItemCategory extends AppCompatActivity {
 
@@ -70,7 +65,7 @@ public class Activity_ItemCategory extends AppCompatActivity {
 
                             }
                             // Display Items
-                            Adapter_items adapter_items = new Adapter_items(Activity_ItemCategory.this, items);
+                            Adapter_Items adapter_items = new Adapter_Items(Activity_ItemCategory.this, items);
                             adapter_items.setClickListeners(itemClickListener);
                             UpdateDeals_LST_dealsList.setLayoutManager(new LinearLayoutManager(Activity_ItemCategory.this));
                             UpdateDeals_LST_dealsList.setAdapter(adapter_items);
@@ -81,7 +76,7 @@ public class Activity_ItemCategory extends AppCompatActivity {
                 });
     }
     // clicking Item action
-    Adapter_items.lItemClickListener itemClickListener = new Adapter_items.lItemClickListener() {
+    Adapter_Items.lItemClickListener itemClickListener = new Adapter_Items.lItemClickListener() {
         @Override
         public void itemClicked(Item item, int position) {
             // Add item to SP as current item
@@ -99,7 +94,7 @@ public class Activity_ItemCategory extends AppCompatActivity {
     }
 
     private void openItemDialog(Item item) {
-        Item_Dialog itemDialog = new Item_Dialog(item);
+        ItemDialog itemDialog = new ItemDialog(item);
         itemDialog.show(getSupportFragmentManager(), "Update Deal");
     }
 }

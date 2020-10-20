@@ -12,6 +12,7 @@ public class Order {
     private LocationManager location = null;
     private double lat = 0;
     private double lon = 0;
+    private String user_id = "";
 
 
     public Order() {
@@ -26,6 +27,17 @@ public class Order {
         this.item_list.add(item);
         return item_list;
     }
+    public ArrayList<Item> removeOneItem(Item item){
+        int index = 0;
+        for(Item c_item: this.item_list){
+            if(c_item.getDescription().equals(item.getDescription())){
+                item_list.remove(index);
+                return item_list;
+            }
+            index++;
+        }
+        return item_list;
+    }
 
     public ArrayList<Item> getItem_list() {
         return item_list;
@@ -36,13 +48,16 @@ public class Order {
         return this;
     }
 
-    public String getTotal_price() {
+    public void setTotal_price() {
         double total = 0.0;
         for(Item item : item_list){
             total = total + Double.parseDouble(item.getPrice());
         }
-        total_price = String.valueOf(total);
-        return total_price;
+        this.total_price = String.valueOf(total);
+    }
+
+    public String getTotal_price(){
+        return this.total_price;
     }
     
     public String getTimestamp() {
@@ -78,6 +93,15 @@ public class Order {
 
     public Order setLon(double lon) {
         this.lon = lon;
+        return this;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public Order setUser_id(String user_id) {
+        this.user_id = user_id;
         return this;
     }
 

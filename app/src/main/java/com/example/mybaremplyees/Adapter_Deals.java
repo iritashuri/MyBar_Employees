@@ -33,7 +33,7 @@ public class Adapter_Deals extends RecyclerView.Adapter<Adapter_Deals.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.deal_view,parent,false);
+        View view = mInflater.inflate(R.layout.item_view,parent,false);
         return new ViewHolder(view);
     }
 
@@ -62,8 +62,8 @@ public class Adapter_Deals extends RecyclerView.Adapter<Adapter_Deals.ViewHolder
         TextView dealView_TXT_price;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            dealView_TXT_description = itemView.findViewById(R.id.dealView_TXT_description);
-            dealView_TXT_price = itemView.findViewById(R.id.dealView_TXT_price);
+            dealView_TXT_description = itemView.findViewById(R.id.itemView_TXT_description);
+            dealView_TXT_price = itemView.findViewById(R.id.itemView_TXT_price);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
