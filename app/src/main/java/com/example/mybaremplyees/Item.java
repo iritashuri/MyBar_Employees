@@ -25,7 +25,7 @@ public class Item {
 
 
     public Item(String description, String price) {
-        this.category = category;
+        this.description = description;
         this.price = price;
     }
 
@@ -70,5 +70,10 @@ public class Item {
     public Item setKey(String key) {
         this.key = key;
         return this;
+    }
+    public boolean isAlcoholGlass(){
+        if(this.category.equals(CATEGORIES.BEERS) || this.category.equals(CATEGORIES.WINES) || this.category.equals(CATEGORIES.COCKTAILS))
+            return true;
+        return false;
     }
 }

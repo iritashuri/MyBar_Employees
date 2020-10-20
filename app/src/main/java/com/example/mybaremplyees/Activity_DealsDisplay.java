@@ -14,6 +14,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,10 @@ public class Activity_DealsDisplay extends AppCompatActivity {
     DatabaseReference myRef;
 
 
+    private MySPV mySPV;
+    Gson json = new Gson();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +37,10 @@ public class Activity_DealsDisplay extends AppCompatActivity {
 
         // Set cards list
         Deals_LST_dealsList = findViewById(R.id.Deals_LST_dealsList);
+
+        // Set SP
+        mySPV = new MySPV(this);
+        Gson json = new Gson();
 
         // Set real time Firebase
         database = FirebaseDatabase.getInstance();
@@ -67,9 +76,21 @@ public class Activity_DealsDisplay extends AppCompatActivity {
     }
 
     Adapter_Deals.DealItemClickListener dealItemClickListener = new Adapter_Deals.DealItemClickListener() {
+
         @Override
-        public void itemClicked(Deal exercise, int position) {
-            Toast.makeText(Activity_DealsDisplay.this, exercise.getDescription() + " Clicked", Toast.LENGTH_LONG).show();
+        public void itemClicked(Deal deal, int position) {
+            // Convert deal to an item
+            Item item = new Item(Item.CATEGORIES.DEALS, deal.getDescription(), deal.getPrice());
+            // Add item to SP as current item
+            String item_json = json.toJson(item);
+            mySPV.putString(MySPV.KEYS.CURRENT_ITEM, item_json);
+            //Open dialog
+            openItemDialog(item);
         }
     };
+
+    private void openItemDialog(Item item) {
+        Item_Dialog itemDialog = new Item_Dialog(item);
+        itemDialog.show(getSupportFragmentManager(), "Update Deal");
+    }
 }

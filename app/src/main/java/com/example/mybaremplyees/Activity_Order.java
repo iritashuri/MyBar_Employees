@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.google.gson.Gson;
 
@@ -22,6 +23,7 @@ public class Activity_Order extends AppCompatActivity {
     private Button Order_BTN_Daily_Add;
     private Button Order_BTN_Daily_View;
     private Button Order_BTN_Daily_Delete;
+    private EditText Order_EDT_customerMail;
 
     // Set SP
     private MySPV mySPV;
@@ -133,5 +135,6 @@ public class Activity_Order extends AppCompatActivity {
         Order_BTN_Daily_Add = findViewById(R.id.Order_BTN_Daily_Add);
         Order_BTN_Daily_View = findViewById(R.id.Order_BTN_Daily_View);
         Order_BTN_Daily_Delete = findViewById(R.id.Order_BTN_Daily_Delete);
+        Order_EDT_customerMail = findViewById(R.id.Order_EDT_customerMail);
     }
 }
