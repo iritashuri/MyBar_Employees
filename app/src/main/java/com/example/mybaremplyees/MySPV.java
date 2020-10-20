@@ -13,6 +13,7 @@ public class MySPV {
         public static final String CURRENT_USER = "CURRENT_USER";
         public static final String CURRENT_ORDER = "CURRENT_ORDER";
         public String CATEGORY = "CATEGORY";
+        public String CURRENT_ITEM = "CURRENT_ITEM";
     }
 
     private SharedPreferences prefs;

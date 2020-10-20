@@ -1,7 +1,9 @@
 package com.example.mybaremplyees;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,22 +15,31 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Item_Dialog extends AppCompatDialogFragment {
-    private EditText UpdateDeal_EDT_description;
-    private EditText UpdateDeal_EDT_price;
-    FirebaseDatabase database;
-    DatabaseReference ref;
+    private ElegantNumberButton Dialog_Item_NBTM_number;
+    private FirebaseFirestore db;
+
+    private MySPV mySPV;
+    Gson gson = new Gson();
 
     private Item item;
+
 
     public Item_Dialog() {
     }
@@ -43,15 +54,12 @@ public class Item_Dialog extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_deal, null);
+        View view = inflater.inflate(R.layout.dialog_item, null);
 
-        final EditText UpdateDeal_EDT_description = view.findViewById(R.id.UpdateDeal_EDT_description);
-        final EditText UpdateDeal_EDT_price = view.findViewById(R.id.UpdateDeal_EDT_price);
-        UpdateDeal_EDT_description.setText(item.getDescription());
-        UpdateDeal_EDT_price.setText(item.getPrice());
+        Dialog_Item_NBTM_number = view.findViewById(R.id.Dialog_Item_NBTM_number);
 
-        database = FirebaseDatabase.getInstance();
-        ref = database.getReference("deals");
+        //item = getCurrentItemFromSP();
+
 
         builder.setView(view).setNegativeButton("cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -59,63 +67,63 @@ public class Item_Dialog extends AppCompatDialogFragment {
                 // Close dialog
             }
         }).setPositiveButton("update", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(final DialogInterface dialogInterface, int i) {
-                // get new description and price from the user
-                final String new_description = UpdateDeal_EDT_description.getText().toString().trim();
-                final String new_price = UpdateDeal_EDT_price.getText().toString().trim();
 
-                ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        // Go ove all deals and find current deal
-                        for (DataSnapshot current_deal: snapshot.getChildren()) {
-                            // if found
-                            if (item.getKey().equals(current_deal.child("key").getValue().toString().trim())){
-                                // Create HashMap with new value
-                                Map<String, String> new_deal_map = new HashMap<>();
-                                new_deal_map.put("description", new_description);
-                                new_deal_map.put("key", item.getKey());
-                                new_deal_map.put("price", new_price);
-                                // Set new values
-                                ref.child(current_deal.getKey()).setValue(new_deal_map);
-                                break;
-                            }
-                        }
-                        return;
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
-            }
-        }).setNeutralButton("delete", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot current_deal: snapshot.getChildren()) {
-                            Log.d("ptt", "desl: " + ref.child(current_deal.getKey()));
-                            //Log.d("ptt", "des2: " + deal.getKey());
-                            //this is all you need to get a specific user by Uid
-                            if (item.getKey().equals(current_deal.child("key").getValue().toString().trim())){
-                                ref.child(current_deal.getKey()).removeValue();
-                                break;
-                            }
-                        }
-                        return;
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+                mySPV = new MySPV(getActivity().getApplicationContext());
+                final String num_of_items_str = Dialog_Item_NBTM_number.getNumber();
+                final int num_of_items = Integer.parseInt(num_of_items_str);
+                // Inset item to current order on SP num_of_items times
+                for(int n = 0; n < num_of_items; n++){
+                    insetNewOrderToSP(item);
+                }
+                // Find element in Firestore according description
+//                DocumentReference docRef = db.collection("items").document("items");
+//                if(docRef == null){
+//                    Log.d("pttt", "docRef == null");
+//                }
+//                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            DocumentSnapshot document = task.getResult();
+//                            Item
+//                            if (document.exists()) {
+//                                // Inset item to current order on SP num_of_items times
+//                                for(int i = 0; i < num_of_items; i++){
+//                                    insetNewOrderToSP(item);
+//                                }
+//                            } else {
+//                                Log.d("TAG", "No such document");
+//                            }
+//                        } else {
+//                            Log.d("TAG", "get failed with ", task.getException());
+//                        }
+//                    }
+//                });
             }
         });
         return builder.create();
+    }
+
+    private void insetNewOrderToSP(Item item) {
+        // Get order from SP
+        Order new_order = getCurrentOrderFromSP();
+        // Add new item
+        new_order.addOneItemToList(item);
+        // Insert to SP
+        String json_order = gson.toJson(new_order);
+        mySPV.putString(MySPV.KEYS.CURRENT_ORDER, json_order);
+    }
+
+    private Item getCurrentItemFromSP() {
+        String json_item = mySPV.getString(MySPV.KEYS.CURRENT_ITEM, "No Item");
+        return gson.fromJson(json_item, Item.class);
+    }
+
+    private Order getCurrentOrderFromSP(){
+        String json_order = mySPV.getString(MySPV.KEYS.CURRENT_ORDER, "No Item");
+        Log.d("yy" , "yy " + json_order );
+        return gson.fromJson(json_order, Order.class);
     }
 }

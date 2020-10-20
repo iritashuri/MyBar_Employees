@@ -28,7 +28,7 @@ public class Activity_ItemCategory extends AppCompatActivity {
     private FirebaseFirestore db;
 
     private MySPV mySPV;
-    Gson gson = new Gson();
+    Gson json = new Gson();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +42,7 @@ public class Activity_ItemCategory extends AppCompatActivity {
 
         // Set SP
         mySPV = new MySPV(this);
+        Gson json = new Gson();
 
         showItems();
     }
@@ -83,11 +84,22 @@ public class Activity_ItemCategory extends AppCompatActivity {
     Adapter_items.lItemClickListener itemClickListener = new Adapter_items.lItemClickListener() {
         @Override
         public void itemClicked(Item item, int position) {
+            // Add item to SP as current item
+            String item_json = json.toJson(item);
+            mySPV.putString(MySPV.KEYS.CURRENT_ITEM, item_json);
+            //Open dialog
+            openItemDialog(item);
+
 
         }
     };
 
     private void findViews() {
         UpdateDeals_LST_dealsList = findViewById(R.id.UpdateDeals_LST_dealsList);
+    }
+
+    private void openItemDialog(Item item) {
+        Item_Dialog itemDialog = new Item_Dialog(item);
+        itemDialog.show(getSupportFragmentManager(), "Update Deal");
     }
 }

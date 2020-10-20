@@ -43,6 +43,7 @@ public class Activity_Order extends AppCompatActivity {
         // Set new empty order on SP
         setOrderOnSP();
 
+
         // Open cocktail list
         Order_BTN_cocktails.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -63,9 +63,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-database'
     implementation 'com.cepheuen.elegant-number-button:lib:1.0.2'
 
+    // Json parsing library
+    implementation 'com.google.code.gson:gson:2.8.6'
 
-
-
+    debugImplementation 'com.amitshekhar.android:debug-db-encrypt:1.0.6'
 
 
 }

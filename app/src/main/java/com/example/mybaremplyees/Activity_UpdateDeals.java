@@ -83,34 +83,11 @@ public class Activity_UpdateDeals extends AppCompatActivity {
                 Log.w("pttt", "loadPost:onCancelled", databaseError.toException());
             }
         });
-        // Get deals from the firestore
-
-//        db.collection("deals")
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            ArrayList<Deal> myDeals = new ArrayList<>();
-//                            for (QueryDocumentSnapshot document : task.getResult()) {
-//                                Deal temp = new Deal(document.getString("description"), document.getString("price"));
-//                                myDeals.add(temp);
-//                            }
-//                            Adapter_Deals adapter_deals = new Adapter_Deals(Activity_UpdateDeals.this, myDeals);
-//                            adapter_deals.setClickListeners(dealItemClickListener);
-//                            UpdateDeals_LST_dealsList.setLayoutManager(new LinearLayoutManager(Activity_UpdateDeals.this));
-//                            UpdateDeals_LST_dealsList.setAdapter(adapter_deals);
-//                        } else {
-//                            Log.w("pttt", "Error getting documents.", task.getException());
-//                        }
-//                    }
-//                });
     }
 
     Adapter_Deals.DealItemClickListener dealItemClickListener = new Adapter_Deals.DealItemClickListener() {
         @Override
         public void itemClicked(Deal deal, int position) {
-            Toast.makeText(Activity_UpdateDeals.this, deal.getDescription() + " Clicked", Toast.LENGTH_LONG).show();
             openDealDialog(deal);
         }
     };
@@ -118,13 +95,6 @@ public class Activity_UpdateDeals extends AppCompatActivity {
     private void openDealDialog(Deal deal) {
         DealDialog dealDialog = new DealDialog(deal);
         dealDialog.show(getSupportFragmentManager(), "Update Deal");
-//        AlertDialog.Builder mBuilder = new AlertDialog.Builder(Activity_UpdateDeals.this);
-//        View mView = getLayoutInflater().inflate(R.layout.dialog_deal, null);
-//        EditText UpdateDeal_EDT_description = mView.findViewById(R.id.UpdateDeal_EDT_description);
-//        EditText UpdateDeal_EDT_price = mView.findViewById(R.id.UpdateDeal_EDT_price);
-//        Button UpdateDeal_BTN_Update = mView.findViewById(R.id.UpdateDeal_BTN_Update);
-//        Button UpdateDeal_BTN_Delete = mView.findViewById(R.id.UpdateDeal_BTN_Delete);
-
     }
 
     private void openAddDeal() {

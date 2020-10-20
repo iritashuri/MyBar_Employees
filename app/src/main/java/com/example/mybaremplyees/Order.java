@@ -15,6 +15,7 @@ public class Order {
 
 
     public Order() {
+        this.total_price = "0";
     }
 
     public Order(ArrayList<Item> item_list) {
