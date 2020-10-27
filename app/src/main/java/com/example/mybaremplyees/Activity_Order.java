@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,6 +36,15 @@ import java.util.Map;
 
 public class Activity_Order extends AppCompatActivity implements LocationListener{
 
+    private static final String[] INITIAL_PERMS={
+            Manifest.permission.ACCESS_FINE_LOCATION,
+    };
+    private static final String[] LOCATION_PERMS={
+            Manifest.permission.ACCESS_FINE_LOCATION
+    };
+    private static final int INITIAL_REQUEST=1337;
+    private static final int LOCATION_REQUEST=1340+3;
+
     // Set Buttons
     private Button Order_BTN_cocktails;
     private Button Order_BTN_Wines;
@@ -48,14 +58,13 @@ public class Activity_Order extends AppCompatActivity implements LocationListene
     private EditText Order_EDT_customerMail;
 
     // Set FirebaseAuth
-    private FirebaseAuth mAuth;
     private FirebaseFirestore db;
 
     // Set SP
     private MySPV mySPV;
     Gson gson = new Gson();
 
-    //set new Order
+    // Set new Order
     Order current_order = new Order();
 
     // Set userId
@@ -64,7 +73,6 @@ public class Activity_Order extends AppCompatActivity implements LocationListene
     // Set location
     private LocationManager locationManager;
     private Location location;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,15 +84,15 @@ public class Activity_Order extends AppCompatActivity implements LocationListene
         // Set SP
         mySPV = new MySPV(this);
 
-        // Set firebase
-        mAuth = FirebaseAuth.getInstance();
+        // Set Firebase
         db = FirebaseFirestore.getInstance();
 
         // Set new empty order on SP
         setOrderOnSP();
 
         // Set location
-        setLocation();
+        locationManager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
+        requestPermissions(LOCATION_PERMS, LOCATION_REQUEST);
 
 
         // Open cocktail list
@@ -155,11 +163,24 @@ public class Activity_Order extends AppCompatActivity implements LocationListene
             @Override
             public void onClick(View v) {
                 getCurrentOrderFromSP();
-                addOrderToCustomer();
+                getPermission(new Permission_CallBack() {
+                    @Override
+                    public void onComplete() {
+                        addOrderToCustomer();
+                    }
+                });
+
             }
         });
     }
 
+    private void getPermission(final Permission_CallBack permission_callBack){
+        // Set location
+        requestPermissions(LOCATION_PERMS, LOCATION_REQUEST);
+        if(permission_callBack != null){
+            permission_callBack.onComplete();
+        }
+    }
     private void addOrderToCustomer() {
         // Get customer mail
         final String customer_mail = Order_EDT_customerMail.getText().toString().trim();
@@ -177,13 +198,11 @@ public class Activity_Order extends AppCompatActivity implements LocationListene
                         if(document.get("email").equals(customer_mail)){
 
                             userId = document.getId();
-                            Log.d("ptt", "document.getId(): " + document.getId());
                             // Set user id on current user
                             current_order.setUser_id(userId);
                             // get Orders collection
                             CollectionReference collectionReference  = db.collection("orders");
-                            // Set location
-                            setOrderLocation();
+
                             // Set timestamp
                             setOrderTimeStamp();
 
@@ -218,10 +237,14 @@ public class Activity_Order extends AppCompatActivity implements LocationListene
                                     Toast.makeText(Activity_Order.this, "Added order successfully", Toast.LENGTH_LONG).show();
                                     finish();
                                 }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(Activity_Order.this, "User not found", Toast.LENGTH_LONG).show();
+                                }
                             });
                             break;
                         }
-                        Toast.makeText(Activity_Order.this, "User not found", Toast.LENGTH_LONG).show();
                     }
                 } else {
                     Log.d("TAG", "Error getting documents: ", task.getException());
@@ -298,6 +321,7 @@ public class Activity_Order extends AppCompatActivity implements LocationListene
     void setOrderLocation(){
         current_order.setLat(location.getLatitude());
         current_order.setLon(location.getLongitude());
+        Log.d("locationnn", ""+ current_order.getLat() + " " + current_order.getLon());
 
     }
     void setOrderTimeStamp(){
@@ -305,15 +329,21 @@ public class Activity_Order extends AppCompatActivity implements LocationListene
     }
 
     private void setLocation() {
-        locationManager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
 
         // Check map permission
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Toast.makeText(this, "Please permit location accsess", Toast.LENGTH_LONG).show();
             return;
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (LocationListener) this);
-        location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        try {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (LocationListener) this);
+            location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+        }catch (Exception e){
+            Log.d("locationnn", ""+ e);
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -322,38 +352,24 @@ public class Activity_Order extends AppCompatActivity implements LocationListene
         current_order.setLon(location.getLongitude());
     }
 
-//    public void updateCustomerDrinks(){
-//        //int drinks = Integer.parseInt(documentReference.get("drinks").toString());
-//        //int drinks = Integer.parseInt(documentReference.get("key").toString());
-//        // Add drinks according current order
-//
-//        db.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if (task.isSuccessful()){
-//                    QuerySnapshot queryDocumentSnapshots = task.getResult();
-//                    //int drinks = Integer.parseInt(queryDocumentSnapshots.get(userId));
-//
-//                }else{
-//
-//                }
-//            }
-//        });
-//
-//        DocumentReference documentReference = db.collection("users")
-//                .document(userId);
-//
-//        for(Item i: current_order.getItem_list()){
-//            if(i.isAlcoholGlass())
-//               // drinks++;
-//        }
-//        // Make map to insert details to customer
-////        Map<String,Object> user = new HashMap<>();
-////        user.put("full_name" , documentReference.get("full_name"));
-////        user.put("email", documentReference.get("email"));
-////        user.put("phone", documentReference.get("phone"));
-////        user.put("drinks", documentReference.get("drinks"));
-//
-//       // documentReference.update(user);
-//    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // Check map permission
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(this, "Please permit location accsess", Toast.LENGTH_LONG).show();
+            return;
+        }
+        try {
+            setLocation();
+            setOrderLocation();
+
+        }catch (Exception e){
+            Log.d("locationnn", ""+ e);
+            e.printStackTrace();
+        }
+
+    }
+
 }

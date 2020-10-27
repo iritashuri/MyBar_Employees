@@ -15,7 +15,6 @@ import java.util.ArrayList;
 public class Adapter_Items extends RecyclerView.Adapter<Adapter_Items.ViewHolder> {
     private ArrayList<Item> mData = new ArrayList<>();
     private LayoutInflater mInflater;
-    private Context context;
 
     public lItemClickListener itemClickListener;
 
@@ -23,7 +22,6 @@ public class Adapter_Items extends RecyclerView.Adapter<Adapter_Items.ViewHolder
     Adapter_Items(Context context, ArrayList<Item> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
-        this.context = context;
     }
 
     public void setClickListeners(lItemClickListener itemClickListener) {

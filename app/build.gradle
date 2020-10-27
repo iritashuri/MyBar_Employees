@@ -62,12 +62,15 @@ dependencies {
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-database'
     implementation 'com.cepheuen.elegant-number-button:lib:1.0.2'
+    implementation 'com.google.android.gms:play-services-location:17.1.0'
 
     // Json parsing library
     implementation 'com.google.code.gson:gson:2.8.6'
 
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
     debugImplementation 'com.amitshekhar.android:debug-db-encrypt:1.0.6'
+
+
 
 
 }
