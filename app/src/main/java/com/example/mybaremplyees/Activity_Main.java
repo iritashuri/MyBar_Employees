@@ -26,6 +26,7 @@ public class Activity_Main extends AppCompatActivity {
     private EditText Main_EDT_password;
     private Button Main__BTN_addOrder;
     private Button Main_BTN_updateDeals;
+    private Button Main_BTN_freeDrink;
     private TextView Main_TXT_newEmployee;
 
     private FirebaseFirestore db;
@@ -56,6 +57,17 @@ public class Activity_Main extends AppCompatActivity {
             }
         });
 
+        // Free drink for a customer - remove card
+        Main_BTN_freeDrink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Check if password exist
+                if(checkPassword()){
+                    openFreeDrinksDialog();
+                }
+            }
+        });
+
         Main_TXT_newEmployee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,11 +88,18 @@ public class Activity_Main extends AppCompatActivity {
         });
     }
 
+    private void openFreeDrinksDialog() {
+            FreeDrinksDialog freeDrinksDialog = new FreeDrinksDialog();
+            freeDrinksDialog.show(getSupportFragmentManager(), "Free Drinks update");
+    }
+
     private void findViews(){
         Main_EDT_password = findViewById(R.id.Main_EDT_password);
         Main__BTN_addOrder = findViewById(R.id.Main__BTN_addOrder);
         Main_BTN_updateDeals = findViewById(R.id.Main_BTN_updateDeals);
+        Main_BTN_freeDrink = findViewById(R.id.Main_BTN_freeDrink);
         Main_TXT_newEmployee = findViewById(R.id.Main_TXT_newEmployee);
+
     }
 
     // Open updateDeals activity

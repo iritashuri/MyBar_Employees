@@ -57,7 +57,7 @@ public class Activity_Order extends AppCompatActivity implements LocationListene
     private Button Order_BTN_Daily_View;
     private EditText Order_EDT_customerMail;
 
-    // Set FirebaseAuth
+    // Set FireStore
     private FirebaseFirestore db;
 
     // Set SP
@@ -207,8 +207,6 @@ public class Activity_Order extends AppCompatActivity implements LocationListene
                             setOrderTimeStamp();
 
                             // Set new drinks number
-
-
                             int drinks;
                             if(!(document.get("drinks").toString().isEmpty()))
                                  drinks = Integer.parseInt(document.get("drinks").toString());

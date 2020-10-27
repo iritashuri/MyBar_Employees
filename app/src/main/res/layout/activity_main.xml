@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:text="Welcome to MyBar!"
             android:textSize="50dp"
-            android:layout_marginBottom="100dp"
+            android:layout_marginBottom="40dp"
             android:fontFamily="cursive"
             android:textStyle="bold"
             android:textColor="@color/colorDarkText"
@@ -60,8 +60,17 @@
             android:textColor="#ffffff"
             android:textSize="20dp"
             android:background="@drawable/mybtn"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="40dp"
             android:text="Update deals"/>
+        <Button
+            android:id="@+id/Main_BTN_freeDrink"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:background="@drawable/mybtn"
+            android:layout_marginBottom="20dp"
+            android:text="Free Drink for a customer"/>
 
         <TextView
             android:id="@+id/Main_TXT_newEmployee"
