@@ -82,6 +82,9 @@ public class Activity_RegisterEmployee extends AppCompatActivity {
         // Register the employee in firebase
         insertDetails(user_name, password);
 
+        Activity_Main.getInstance().finish();
+        Activity_Main.getInstance().start();
+
     }
 
     // Check if there are errors and return true if there is

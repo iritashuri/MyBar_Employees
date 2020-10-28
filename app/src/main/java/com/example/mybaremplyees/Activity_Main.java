@@ -31,6 +31,8 @@ public class Activity_Main extends AppCompatActivity {
 
     private FirebaseFirestore db;
 
+    static Activity_Main activity_main;
+
     private ArrayList<String> employees_passwords = new ArrayList<>();
 
     @Override
@@ -39,6 +41,8 @@ public class Activity_Main extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         findViews();
+
+        activity_main = this;
 
         // Set Firestore
         db = FirebaseFirestore.getInstance();
@@ -154,5 +158,12 @@ public class Activity_Main extends AppCompatActivity {
                 });
     }
 
+    public static Activity_Main getInstance() {
+        return activity_main;
+    }
 
+    public void start(){
+        Intent intent = new Intent(Activity_Main.this, Activity_Main.class);
+        startActivity(intent);
+    }
 }

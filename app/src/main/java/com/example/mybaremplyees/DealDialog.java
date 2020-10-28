@@ -24,8 +24,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DealDialog extends AppCompatDialogFragment {
-    FirebaseDatabase database;
-    DatabaseReference ref;
+    private FirebaseDatabase database;
+    private DatabaseReference ref;
 
     private Deal deal;
 

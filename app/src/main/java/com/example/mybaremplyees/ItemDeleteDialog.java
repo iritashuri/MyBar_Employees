@@ -18,11 +18,11 @@ import com.google.gson.Gson;
 public class ItemDeleteDialog extends AppCompatDialogFragment {
 
     private MySPV mySPV;
-    Gson gson = new Gson();
+    private Gson gson = new Gson();
 
     private Item item;
 
-    Order new_order = new Order();
+    private Order new_order = new Order();
 
 
     public ItemDeleteDialog() {

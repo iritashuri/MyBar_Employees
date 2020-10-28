@@ -36,7 +36,7 @@ public class ItemDialog extends AppCompatDialogFragment {
     private FirebaseFirestore db;
 
     private MySPV mySPV;
-    Gson gson = new Gson();
+    private Gson gson = new Gson();
 
     private Item item;
 
