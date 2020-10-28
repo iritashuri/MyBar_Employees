@@ -15,16 +15,22 @@
         android:orientation="vertical"
         android:paddingTop="20dp"
         >
-
+        <Button
+            android:id="@+id/ItemCategory_BTN_back"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:background="@drawable/back"
+            android:layout_gravity="left"
+            />
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/UpdateDeals_LST_dealsList"
+            android:id="@+id/ItemCategory_LST_dealsList"
             android:layout_width="match_parent"
             android:layout_height="462dp"
             android:layout_marginBottom="25dp" />
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/UpdateDeals_IMG_logo"
+        android:id="@+id/ItemCategory_IMG_logo"
         android:layout_width="94dp"
         android:layout_height="136dp"
         android:layout_gravity="bottom|right"

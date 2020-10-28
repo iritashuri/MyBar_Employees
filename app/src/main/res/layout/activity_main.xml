@@ -20,7 +20,7 @@
             android:id="@+id/Main_TXT_welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Welcome to MyBar!"
+            android:text="@string/welcome_to_mybar"
             android:textSize="50dp"
             android:layout_marginBottom="40dp"
             android:fontFamily="cursive"
@@ -35,8 +35,8 @@
             android:id="@+id/Main_EDT_password"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:hint="your password"
-            android:inputType="textPassword"
+            android:hint="@string/your_password"
+            android:inputType="number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginBottom="30dp"
@@ -50,7 +50,7 @@
             android:textSize="20dp"
             android:background="@drawable/mybtn"
             android:layout_marginBottom="40dp"
-            android:text="Add an order to a customer"
+            android:text="@string/add_an_order_to_a_customer"
             />
 
         <Button
@@ -61,7 +61,7 @@
             android:textSize="20dp"
             android:background="@drawable/mybtn"
             android:layout_marginBottom="40dp"
-            android:text="Update deals"/>
+            android:text="@string/update_deals"/>
         <Button
             android:id="@+id/Main_BTN_freeDrink"
             android:layout_width="250dp"
@@ -70,13 +70,13 @@
             android:textSize="20dp"
             android:background="@drawable/mybtn"
             android:layout_marginBottom="20dp"
-            android:text="Free Drink for a customer"/>
+            android:text="@string/free_drink_for_a_customer"/>
 
         <TextView
             android:id="@+id/Main_TXT_newEmployee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New employee?"
+            android:text="@string/new_employee"
             android:textColor="@color/colorDarkText"
             android:textStyle="bold"/>
 

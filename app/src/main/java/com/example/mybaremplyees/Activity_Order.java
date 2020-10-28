@@ -55,6 +55,7 @@ public class Activity_Order extends AppCompatActivity implements LocationListene
     private Button Order_BTN_Daily_Deals;
     private Button Order_BTN_Daily_Add;
     private Button Order_BTN_Daily_View;
+    private Button Order_BTN_back;
     private EditText Order_EDT_customerMail;
 
     // Set FireStore
@@ -62,13 +63,13 @@ public class Activity_Order extends AppCompatActivity implements LocationListene
 
     // Set SP
     private MySPV mySPV;
-    Gson gson = new Gson();
+    private Gson gson = new Gson();
 
     // Set new Order
-    Order current_order = new Order();
+    private Order current_order = new Order();
 
     // Set userId
-    String userId = "";
+    private String userId = "";
 
     // Set location
     private LocationManager locationManager;
@@ -170,6 +171,14 @@ public class Activity_Order extends AppCompatActivity implements LocationListene
                     }
                 });
 
+            }
+        });
+
+        // Go back and close activity
+        Order_BTN_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
@@ -314,6 +323,7 @@ public class Activity_Order extends AppCompatActivity implements LocationListene
         Order_BTN_Daily_Add = findViewById(R.id.Order_BTN_Daily_Add);
         Order_BTN_Daily_View = findViewById(R.id.Order_BTN_Daily_View);
         Order_EDT_customerMail = findViewById(R.id.Order_EDT_customerMail);
+        Order_BTN_back = findViewById(R.id.Order_BTN_back);
     }
 
     void setOrderLocation(){

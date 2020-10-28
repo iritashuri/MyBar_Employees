@@ -28,10 +28,11 @@ public class Activity_AddDeal extends AppCompatActivity {
     private EditText AddDeal_EDT_price;
     private Button AddDeal_BTN_Add;
     private ProgressBar AddDeal_PRBR_progressBar;
+    private  Button AddDeal_BTN_back;
 
     private FirebaseFirestore db;
-    FirebaseDatabase database;
-    DatabaseReference myRef;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
 
 
     @Override
@@ -51,14 +52,22 @@ public class Activity_AddDeal extends AppCompatActivity {
                 AddDeal();
             }
         });
-    }
 
+        // Go back and close activity
+        AddDeal_BTN_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
 
     private void findViews(){
         AddDeal_EDT_description = findViewById(R.id.AddDeal_EDT_description);
         AddDeal_EDT_price = findViewById(R.id.AddDeal_EDT_price);
         AddDeal_BTN_Add = findViewById(R.id.AddDeal_BTN_Add);
         AddDeal_PRBR_progressBar = findViewById(R.id.AddDeal_PRBR_progressBar);
+        AddDeal_BTN_back = findViewById(R.id.AddDeal_BTN_back);
     }
 
     // Insert new deal to database
@@ -77,10 +86,6 @@ public class Activity_AddDeal extends AppCompatActivity {
 
         // InsertDealDetails
         insertDetails(description, price);
-
-
-
-
     }
 
     // Check if there are errors and return true if there is

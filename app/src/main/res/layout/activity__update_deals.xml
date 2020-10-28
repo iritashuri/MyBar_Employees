@@ -15,6 +15,13 @@
         android:orientation="vertical"
         android:paddingTop="20dp"
         >
+        <Button
+            android:id="@+id/UpdateDeals_BTN_back"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:background="@drawable/back"
+            android:layout_gravity="left"
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/UpdateDeals_LST_dealsList"
@@ -30,7 +37,7 @@
             android:textSize="20dp"
             android:background="@drawable/mybtn"
             android:layout_marginBottom="50dp"
-            android:text="Add New deal"
+            android:text="@string/add_new_deal"
             />
 
         <ProgressBar

@@ -6,19 +6,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.gson.Gson;
 
 public class Activity_ViewOrder extends AppCompatActivity {
 
-    RecyclerView Order_LST_dealsList;
+    private RecyclerView Order_LST_dealsList;
+    private Button Order_BTN_back;
 
     private MySPV mySPV;
-    Gson json = new Gson();
+    private Gson json = new Gson();
 
-    Order current_order = new Order();
+    private Order current_order = new Order();
 
-    static Activity_ViewOrder activity_viewOrder;
+    private static Activity_ViewOrder activity_viewOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,14 @@ public class Activity_ViewOrder extends AppCompatActivity {
 
         showItems();
 
+        // Go back and close Activity
+        Order_BTN_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
     private void getCurrentOrderFromSP() {
@@ -55,6 +66,7 @@ public class Activity_ViewOrder extends AppCompatActivity {
 
     private void findViews() {
         Order_LST_dealsList = findViewById(R.id.Order_LST_dealsList);
+        Order_BTN_back = findViewById(R.id.Order_BTN_back);
     }
 
     // clicking Item action

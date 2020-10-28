@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,11 +24,11 @@ public class Activity_DealsDisplay extends AppCompatActivity {
     private RecyclerView Deals_LST_dealsList;
 
     private FirebaseDatabase database;
-    DatabaseReference myRef;
-
+    private DatabaseReference myRef;
+    private Button Deals_BTN_back;
 
     private MySPV mySPV;
-    Gson json = new Gson();
+    private Gson json = new Gson();
 
 
     @Override
@@ -34,8 +36,7 @@ public class Activity_DealsDisplay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity__deals_display);
 
-        // Set cards list
-        Deals_LST_dealsList = findViewById(R.id.Deals_LST_dealsList);
+        findViews();
 
         // Set SP
         mySPV = new MySPV(this);
@@ -45,7 +46,20 @@ public class Activity_DealsDisplay extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("deals");
 
+        // Go back and close activity
+        Deals_BTN_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         showDeals();
+    }
+
+    private void findViews() {
+        Deals_LST_dealsList = findViewById(R.id.Deals_LST_dealsList);
+        Deals_BTN_back = findViewById(R.id.Deals_BTN_back);
     }
 
     private void showDeals() {
@@ -83,7 +97,7 @@ public class Activity_DealsDisplay extends AppCompatActivity {
             // Add item to SP as current item
             String item_json = json.toJson(item);
             mySPV.putString(MySPV.KEYS.CURRENT_ITEM, item_json);
-            //Open dialog
+            // Open dialog
             openItemDialog(item);
         }
     };

@@ -27,11 +27,12 @@ import java.util.ArrayList;
 public class Activity_UpdateDeals extends AppCompatActivity {
 
     private Button UpdateDeals_BTN_Add;
+    private Button UpdateDeals_BTN_back;
     private RecyclerView UpdateDeals_LST_dealsList;
 
     private FirebaseFirestore db;
     private FirebaseDatabase database;
-    DatabaseReference myRef;
+    private DatabaseReference myRef;
 
 
     private ArrayList<Deal> deals;
@@ -50,6 +51,8 @@ public class Activity_UpdateDeals extends AppCompatActivity {
 
         deals = new ArrayList<>();
 
+        showDeals();
+
         UpdateDeals_BTN_Add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,7 +60,13 @@ public class Activity_UpdateDeals extends AppCompatActivity {
             }
         });
 
-        showDeals();
+        // Go back and close activity
+        UpdateDeals_BTN_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 
@@ -105,6 +114,7 @@ public class Activity_UpdateDeals extends AppCompatActivity {
     private void findViews() {
         UpdateDeals_BTN_Add = findViewById(R.id.UpdateDeals_BTN_Add);
         UpdateDeals_LST_dealsList = findViewById(R.id.UpdateDeals_LST_dealsList);
+        UpdateDeals_BTN_back = findViewById(R.id.UpdateDeals_BTN_back);
     }
 
 

@@ -2,4 +2,30 @@
     <string name="app_name">MyBar Emplyees</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome_to_mybar">Welcome to MyBar!</string>
+    <string name="your_password">your password</string>
+    <string name="add_an_order_to_a_customer">Add an order to a customer</string>
+    <string name="update_deals">Update deals</string>
+    <string name="free_drink_for_a_customer">Free Drink for a customer</string>
+    <string name="new_employee">New employee?</string>
+    <string name="customer_email_address">Customer email address</string>
+    <string name="cocktails">Cocktails</string>
+    <string name="wines">Wines</string>
+    <string name="beers">Beers</string>
+    <string name="chasers">Chasers</string>
+    <string name="soft_drinks">Soft Drinks</string>
+    <string name="food">Food</string>
+    <string name="deals">Deals</string>
+    <string name="add">Add</string>
+    <string name="view_order">View Order</string>
+    <string name="please_fill_in_employee_s_user_name_and_4_numbers_password">Please fill in employee\'s user name and 4 numbers password</string>
+    <string name="user_name">user name</string>
+    <string name="password">password</string>
+    <string name="register">Register</string>
+    <string name="add_new_deal">Add New deal</string>
+    <string name="description">Description</string>
+    <string name="deal_description">Deal description</string>
+    <string name="price">Price</string>
+    <string name="customer_email">Customer Email</string>
+    <string name="remove">remove</string>
 </resources>

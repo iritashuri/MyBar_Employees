@@ -14,14 +14,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Description"
+                android:text="@string/description"
                 android:textSize="20dp"/>
 
             <EditText
                 android:id="@+id/UpdateDeal_EDT_description"
                 android:layout_width="250dp"
                 android:layout_height="50dp"
-                android:hint="Deal description"
+                android:hint="@string/deal_description"
                 android:inputType="text"
                 android:layout_marginBottom="30dp"
                 android:background="@drawable/round_corner"
@@ -37,7 +37,7 @@
                 android:id="@+id/UpdateDeal_EDT_price"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:hint="Price"
+                android:hint="@string/price"
                 android:inputType="numberDecimal"
                 android:background="@drawable/round_corner"
                 />

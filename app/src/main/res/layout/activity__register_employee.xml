@@ -7,6 +7,14 @@
     tools:context=".Activity_RegisterEmployee"
     android:background="@color/colorBackground">
 
+    <Button
+        android:id="@+id/RegEmployee_BTN_back"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:background="@drawable/back"
+        android:layout_gravity="left"
+        android:layout_marginTop="10dp"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +27,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Please fill in employee user name and 4 numbers password"
+            android:text="@string/please_fill_in_employee_s_user_name_and_4_numbers_password"
             android:textStyle="bold"
             android:textColor="@color/colorDarkText"
             />
@@ -29,7 +37,7 @@
             android:id="@+id/RegEmployee_EDT_userName"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:hint="user name"
+            android:hint="@string/user_name"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,8 +49,8 @@
             android:id="@+id/RegEmployee_EDT_password"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:hint="password"
-            android:inputType="textPassword"
+            android:hint="@string/password"
+            android:inputType="number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginBottom="70dp"
@@ -56,7 +64,7 @@
             android:textSize="20dp"
             android:background="@drawable/mybtn"
             android:layout_marginBottom="40dp"
-            android:text="Register"
+            android:text="@string/register"
             />
 
         <ProgressBar
@@ -70,7 +78,7 @@
 
     </LinearLayout>
     <ImageView
-        android:id="@+id/LogIn_IMG_logo"
+        android:id="@+id/RegEmployee_IMG_logo"
         android:layout_width="94dp"
         android:layout_height="136dp"
         android:layout_gravity="bottom|right"

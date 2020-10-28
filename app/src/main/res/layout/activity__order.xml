@@ -6,7 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".Activity_Order"
     android:background="@color/colorBackground">
-
+    <Button
+        android:id="@+id/Order_BTN_back"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:background="@drawable/back"
+        android:layout_gravity="left"
+        android:layout_marginTop="10dp"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +27,7 @@
             android:id="@+id/Order_EDT_customerMail"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:hint="Customer email address"
+            android:hint="@string/customer_email_address"
             android:inputType="textEmailAddress"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +60,7 @@
                         />
 
                     <TextView
-                        android:text="Cocktails"
+                        android:text="@string/cocktails"
                         android:gravity="center"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"
@@ -76,7 +83,7 @@
                         android:textColor="#CC3636"
                         android:textSize="20dp"/>
                     <TextView
-                        android:text="Wines"
+                        android:text="@string/wines"
                         android:gravity="center"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"
@@ -107,7 +114,7 @@
                         android:textColor="#CC3636"
                         android:textSize="20dp" />
                     <TextView
-                        android:text="Beers"
+                        android:text="@string/beers"
                         android:gravity="center"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"
@@ -131,7 +138,7 @@
                         android:textColor="#CC3636"
                         android:textSize="20dp" />
                     <TextView
-                        android:text="Chasers"
+                        android:text="@string/chasers"
                         android:gravity="center"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"
@@ -161,7 +168,7 @@
                         android:textColor="#CC3636"
                         android:textSize="20dp" />
                     <TextView
-                        android:text="Soft Drinks"
+                        android:text="@string/soft_drinks"
                         android:gravity="center"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"
@@ -185,7 +192,7 @@
                         android:textColor="#CC3636"
                         android:textSize="20dp" />
                     <TextView
-                        android:text="Food"
+                        android:text="@string/food"
                         android:gravity="center"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"
@@ -215,7 +222,7 @@
                         android:textColor="#CC3636"
                         android:textSize="20dp" />
                     <TextView
-                        android:text="Deals"
+                        android:text="@string/deals"
                         android:gravity="center"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"
@@ -237,7 +244,7 @@
                 android:id="@+id/Order_BTN_Daily_Add"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Add"
+                android:text="@string/add"
                 android:textSize="10dp"
                 android:layout_margin="5dp"
                 android:background="@drawable/mybtn"/>
@@ -245,7 +252,7 @@
                 android:id="@+id/Order_BTN_Daily_View"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="View Order"
+                android:text="@string/view_order"
                 android:textSize="10dp"
                 android:background="@drawable/mybtn"
                 android:layout_margin="5dp"

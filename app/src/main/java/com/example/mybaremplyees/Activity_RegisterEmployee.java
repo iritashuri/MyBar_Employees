@@ -25,7 +25,9 @@ public class Activity_RegisterEmployee extends AppCompatActivity {
     private EditText RegEmployee_EDT_userName;
     private EditText RegEmployee_EDT_password;
     private Button RegEmployee_BTN_Register;
+    private Button RegEmployee_BTN_back;
     private ProgressBar RegEmployee_PRBR_progressBar;
+
 
     private FirebaseFirestore db;
 
@@ -46,6 +48,13 @@ public class Activity_RegisterEmployee extends AppCompatActivity {
             }
         });
 
+        // Go back and close activity
+        RegEmployee_BTN_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 
@@ -54,6 +63,7 @@ public class Activity_RegisterEmployee extends AppCompatActivity {
         RegEmployee_EDT_password = findViewById(R.id.RegEmployee_EDT_password);
         RegEmployee_BTN_Register = findViewById(R.id.RegEmployee_BTN_Register);
         RegEmployee_PRBR_progressBar = findViewById(R.id.RegEmployee_PRBR_progressBar);
+        RegEmployee_BTN_back = findViewById(R.id.RegEmployee_BTN_back);
     }
     // Insert new employee details
     private void RegisterEmployee(){
