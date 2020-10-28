@@ -2,12 +2,17 @@ package com.example.mybaremplyees;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,8 +43,14 @@ public class FreeDrinksDialog extends AppCompatDialogFragment {
     // Set FireStore
     private FirebaseFirestore db;
 
+    private Context context;
     // Set userId
     String userId = "";
+
+    String toastMessage = "";
+
+    EditText UpdateDeal_EDT_Email;
+    TextView UpdateDeal_EDT_message;
 
     public FreeDrinksDialog() {
     }
@@ -52,7 +63,10 @@ public class FreeDrinksDialog extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_freedrinks, null);
 
-        final EditText UpdateDeal_EDT_Email = view.findViewById(R.id.UpdateDeal_EDT_Email);
+        UpdateDeal_EDT_Email = view.findViewById(R.id.UpdateDeal_EDT_Email);
+        UpdateDeal_EDT_message = view.findViewById(R.id.UpdateDeal_EDT_message);
+
+        context = getActivity();
 
         // Set Firebase
         db = FirebaseFirestore.getInstance();
@@ -69,13 +83,14 @@ public class FreeDrinksDialog extends AppCompatDialogFragment {
                 // Get customer email
                 final String email = UpdateDeal_EDT_Email.getText().toString().trim();
                 if (email.isEmpty()) {
-                    Toast.makeText(getActivity(), "Please enter customer email", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Please enter customer email", Toast.LENGTH_LONG).show();
                 } else {
                     // Get user id from Firestore according to his email address
                     db.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
+                                toastMessage = "User was not found";
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     if (document.get("email").equals(email)) {
 
@@ -91,11 +106,11 @@ public class FreeDrinksDialog extends AppCompatDialogFragment {
                                         String email = document.get("email").toString();
                                         String phone = document.get("phone").toString();
 
-                                        setDrinks(drinks, name, email, phone);
+                                        toastMessage = setDrinks(drinks, name, email, phone);
                                         break;
                                     }
                                 }
-                                Toast.makeText(getActivity(), "Updated successfully", Toast.LENGTH_LONG).show();
+                                Toast.makeText(context, toastMessage, Toast.LENGTH_LONG).show();
                             } else {
                                 Log.d("TAG", "Error getting documents: ", task.getException());
                             }
@@ -107,7 +122,7 @@ public class FreeDrinksDialog extends AppCompatDialogFragment {
         return builder.create();
     }
 
-    private void setDrinks(int drinks, String name, String email, String phone) {
+    private String setDrinks(int drinks, String name, String email, String phone) {
         DocumentReference documentReference = db.collection("users").document(userId);
 
         // Test number of drinks for the customer
@@ -121,10 +136,11 @@ public class FreeDrinksDialog extends AppCompatDialogFragment {
             user.put("drinks", drinks);
 
             documentReference.set(user);
+            return "Updated successfully";
         }
         else {
             // There is not enough drinks saved for the customer in order to get free drink
-            Toast.makeText(getActivity(), "The customer only ordered " + drinks + " drinks counted on this card, " + (10-drinks) + " left", Toast.LENGTH_LONG).show();
+            return "The customer has " + drinks + " drinks counted on this card, " + (10-drinks) + " left";
         }
 
     }

@@ -25,5 +25,9 @@
         android:inputType="textEmailAddress"
         android:background="@drawable/round_corner"
         />
+    <TextView
+        android:id="@+id/UpdateDeal_EDT_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
