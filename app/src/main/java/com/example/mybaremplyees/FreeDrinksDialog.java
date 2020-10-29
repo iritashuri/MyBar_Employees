@@ -113,7 +113,7 @@ public class FreeDrinksDialog extends AppCompatDialogFragment {
         DocumentReference documentReference = db.collection("users").document(userId);
 
         // Test number of drinks for the customer
-        if(drinks > 10) {
+        if(drinks >= 10) {
             drinks -= 10;
             Log.d("drink", "" + drinks);
             Map<String, Object> user = new HashMap<>();
